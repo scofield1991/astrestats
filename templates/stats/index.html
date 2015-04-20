@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>askueclient</title>
+         <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% load staticfiles %}
+        <script src={% static "js/jquery-1.8.3.min.js" %}></script>
+        <script src={% static "js/highcharts.js" %}></script>
+        <script src={% static "js/client-ajax.js" %}></script>
+        <script src={% static "js/client-jquery.js" %}></script>
+        <link rel="stylesheet" href={% static "css/jquery-ui.min.css" %}>
+        <script src={% static "js/jquery-ui.min.js" %}></script>
+        <script src={% static "js/date_ajax.js" %}></script>
+        <!--<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
+        <script type="text/javascript" src={% static "js/bootstrap.min.js" %}></script>
+        <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.2/cerulean/bootstrap.min.css" rel="stylesheet">
+        <!--<link href={% static "js/bootstrap.min.css" %} rel="stylesheet">-->
+<script>
+    $( "#datepicker" ).datepicker({
+	inline: true
+    dateFormat: 'dd.mm.yy'
+});      
+</script> 
+
+<script>
+         $(function() {
+            $( "#tabs" ).tabs();
+         });
+      </script>
+<script>
+$(function () {
+    $('#container').highcharts({
+        title: {
+            text: 'Step line types, with null values in the series'
+        },
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        series: [{
+            data: [1, 2, 3, 12, 9, 6, 7, 11, 9],
+            name: 'Right'
+        }, {
+            data: [5, 6, 7, 8, null, 10, 11, null, 13],
+            step: 'center',
+            name: 'Center'
+        }, {
+            data: [9, 10, 11, 12, null, 14, 15, null, 17],
+            step: 'left',
+            name: 'Left'
+        }]
+
+    });
+});
+</script>
+<script>
+$(function () {
+    $('#container2').highcharts({
+        title: {
+            text: 'Step line types, with null values in the series'
+        },
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        series: [{
+            data: [1, 2, 3, 12, 9, 6, 7, 11, 9],
+            name: 'Right'
+        }, {
+            data: [5, 6, 7, 8, null, 10, 11, null, 13],
+            step: 'center',
+            name: 'Center'
+        }, {
+            data: [9, 10, 11, 12, null, 14, 15, null, 17],
+            step: 'left',
+            name: 'Left'
+        }]
+
+    });
+});
+</script>
+<style>
+td.oname {
+    text-align: right;
+    white-space: nowrap;
+    font-size: 10pt;
+}
+
+#value1 {
+
+    width: 100px;
+}
+#valuem1 {
+
+    width: 100px;
+}
+#value2 {
+
+    width: 100px;
+}
+#valuem2 {
+
+    width: 100px;
+}
+#close {
+
+float: right;
+}
+
+#subm {
+
+float: right;
+}
+
+</style>
+ </head>
+
+    <body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">АСТРЭ</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Интервал<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a id="min5"  href="/askueclient/detail">5 минут</a></li>
+            <li><a id="min30" data-pointid="{{point_n.0.id}}" href="#">30 минут</a></li>
+            <li><a id="hour" data-pointid="{{point_n.0.id}}" href="#">1 час</a></li>
+            <li><a href="#">Месяц</a></li>
+            <li><a href="#">Год</a></li>
+          </ul>
+        </li>
+      </ul>
+      <!--<form id="dateform" class="navbar-form navbar-left" role="search"  method="post">-->
+      <form id="dateform" class="navbar-form navbar-left" role="search" >
+      {% csrf_token %}
+         <div class="navbar-form navbar-left">
+        <input type="text" name="date1" id="date1">   
+        <input type="text" name="date2" id="date2">   
+        </div>
+        <button type="submit" class="btn btn-default" id="subm">Submit</button>
+        </form>
+<ul class="nav navbar-nav navbar-right">
+        <li><a id="opener" href="#">{{ date1 }}</a></li>
+      </ul>
+      
+    </div>
+  </div>
+</nav>     
+
+<!-- Tabs -->
+<div id="tabs">
+	<ul>
+		<li><a href="#container">First</a></li>
+		<li><a href="#container1">Second</a></li>
+		<li><a href="#container2">Third</a></li>
+	</ul>
+	<div id="container" style="width:50%; height:400px;"></div>
+	<div id="container1" style="width:50%; height:400px;"></div>
+	<div id="container2" style="width:50%; height:400px;"></div>
+</div>        
+
+<div id="dialog-1" title="Настройки групп и интервалов" >
+<form id="dateform" class="navbar-form navbar-left" method="POST" >
+      {% csrf_token %}
+         <div class="navbar-form navbar-left">
+        <table id=setintervals>
+            <tbody>
+                <tr>
+                    <th colspan='3'>Интервалы времени (для всех групп)</th>
+                </tr>
+                <tr>
+                    <td>Утрений интервал времени: с </td>
+                    <td><select name="date11" id="date11">
+                           <option selected="selected">{{start_morning_h}}</option>
+                        </select> ч </td>
+                    <td><select name="datem1" id="datem1">
+                            <option selected="selected">{{start_morning_m}}</option>
+                        </select> м </td> 
+                </tr>
+                <tr>
+                    <td style="text-align:right"> по </td>
+                    <td><select name="date22" id="date22">
+                            <option selected="selected">{{end_morning_h}}</option>
+                        </select> ч </td>
+                    <td><select name="datem2" id="datem2">
+                            <option selected="selected">{{end_morning_m}}</option>
+                        </select> м </td> 
+                </tr>
+                 <tr>
+                    <td>Вечерний интервал времени: с </td>
+                    <td><select name="date3" id="date3">
+                            <option selected="selected">{{start_evening_h}}</option>
+                        </select> ч </td>
+                    <td><select name="datem3" id="datem3">
+                            <option selected="selected">{{start_evening_m}}</option>
+                        </select> м </td> 
+                 </tr>
+                 <tr>
+                    <td style="text-align:right "> по </td>
+                    <td><select name="date4" id="date4">
+                            <option selected="selected">{{end_evening_h}}</option>
+                        </select> ч </td>
+                    <td><select name="datem4" id="datem4">
+                            <option selected="selected">{{end_evening_m}}</option>
+                        </select> м </td> 
+                <tr>
+            </tbody>
+         </table>
+         <table id=setlimits>
+            <tbody>
+                <tr>
+                    <th colspan='3'>Лимиты по группам, Квт</th>
+                </tr>
+                <tr>
+                <td class="oname" >З/сталь от ЗЦЭС без тр.</td> 
+                    <td><input name="value1" id="value1" value={{point1_limit_m}}></input></td>
+                    <td><input name="valuem1" id="valuem1" value={{point1_limit_e}}></input> </td> 
+                </tr>
+                <td class="oname" >Промплощадка лимит</td>
+                    <td><input name="value2" id="value2" value={{point2_limit_m}}></input></td>
+                    <td><input name="valuem2" id="valuem2" value={{point2_limit_e}}></input> </td> 
+                </tr>
+            </tbody>
+            </table>
+            </div>
+            <!--<button type="close" class="btn btn-default" id="close">Отмена</button>
+            <button type="submit" class="btn btn-default" id="subm">Сохранить</button>-->
+            
+        </form>
+
+    </div>
+      
+   
+
+        <!--<script src={% static "js/external/jquery/jquery.js" %}></script>-->
+    
+  </tbody>
+</table> 
+<p> {{ point2_limit_e }} </p>
+<p> {{ store_address.street }} </p>
+<p>{{ start_morning_h }} </p>
+<p>{{ pumba.1 }} </p>
+<!--{{ pk }} {{ pd }}
+{{ zn1 }}
+{{ zn2 }}
+{{ zn3 }}
+{{ zn4 }}-->
+  <script type="text/javascript">
+   $( "#date1" ).datepicker({dateFormat: 'dd.mm.yy'});
+   $( "#date2" ).datepicker();
+  </script>
+    
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+   
+    </body>
+</html>
+
